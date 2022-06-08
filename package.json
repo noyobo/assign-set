@@ -1,0 +1,13 @@
+{
+  "name": "assign-set",
+  "version": "1.0.0-beta.0",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^28.1.1",
+    "lodash.get": "^4.4.2"
+  }
+}
