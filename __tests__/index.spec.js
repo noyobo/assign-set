@@ -1,5 +1,5 @@
 const get = require('lodash.get');
-const set = require('../lib/index');
+const set = require('../index');
 
 const assignSet = (path, value, obj) => {
   obj = obj || {};
