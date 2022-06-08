@@ -1,7 +1,12 @@
 {
   "name": "assign-set",
   "version": "1.0.0",
-  "main": "lib/index.js",
+  "main": "index.js",
+  "typings": "index.d.ts",
+  "files": [
+    "index.js",
+    "index.d.ts"
+  ],
   "license": "MIT",
   "scripts": {
     "test": "npx jest"
