@@ -4,7 +4,7 @@
   "main": "lib/index.js",
   "license": "MIT",
   "scripts": {
-    "test": "jest"
+    "test": "npx jest"
   },
   "devDependencies": {
     "jest": "^28.1.1",
