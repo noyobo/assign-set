@@ -12,7 +12,6 @@
     "test": "npx jest"
   },
   "devDependencies": {
-    "jest": "^28.1.1",
-    "lodash.get": "^4.4.2"
+    "jest": "^28.1.1"
   }
 }

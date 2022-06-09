@@ -526,15 +526,18 @@ function baseSet(object, path, value, customizer) {
     var key = toKey(path[index]),
       newValue = value;
 
+    var nextPath = path[index + 1];
+
     if (index != lastIndex) {
       var objValue = nested[key];
       newValue = customizer ? customizer(objValue, key, nested) : undefined;
       if (newValue === undefined) {
-        newValue = isObject(objValue)
-          ? objValue
-          : isIndex(path[index + 1])
-          ? []
-          : {};
+        newValue =
+          isObject(objValue) && isPath(nextPath, objValue)
+            ? objValue
+            : isIndex(nextPath)
+            ? []
+            : {};
       }
     }
 
@@ -656,6 +659,17 @@ function isKey(value, object) {
     !reIsDeepProp.test(value) ||
     (object != null && value in Object(object))
   );
+}
+
+function isPath(path, object) {
+  var isArr = isArray(object);
+  var isField = /\[\d+\]/.test(path);
+  if (isArr && isField) {
+    return true;
+  } else if (!isArr && !isField) {
+    return true;
+  }
+  return false;
 }
 
 /**
