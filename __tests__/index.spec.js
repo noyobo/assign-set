@@ -46,13 +46,18 @@ describe('set', () => {
     expect(assignSet({ a: [] }, 'a.b.c', [1])).toEqual({ a: { b: { c: [1] } } });
     expect(assignSet({ a: [] }, 'a.b.c', { a: 1 })).toEqual({ a: { b: { c: { a: 1 } } } });
 
-    expect(assignSet({ a: [] }, 'a.1.c', 1)).toEqual({ a: { 1: { c: 1 } } });
-    expect(assignSet({ a: [] }, 'a.1.c', '1')).toEqual({ a: { 1: { c: '1' } } });
-    expect(assignSet({ a: [] }, 'a.1.c', false)).toEqual({ a: { 1: { c: false } } });
-    expect(assignSet({ a: [] }, 'a.1.c', [1])).toEqual({ a: { 1: { c: [1] } } });
-    expect(assignSet({ a: [] }, 'a.1.c', { a: 1 })).toEqual({ a: { 1: { c: { a: 1 } } } });
+    expect(assignSet({ a: [] }, 'a.1.c', 1)).toEqual({ a: [undefined, { c: 1 } ] });
+    expect(assignSet({ a: [] }, 'a.1.c', '1')).toEqual({ a: [undefined, { c: '1' } ] });
+    expect(assignSet({ a: [] }, 'a.1.c', false)).toEqual({ a: [undefined, { c: false } ] });
+    expect(assignSet({ a: [] }, 'a.1.c', [1])).toEqual({ a: [undefined, { c: [1] } ] });
+    expect(assignSet({ a: [] }, 'a.1.c', { a: 1 })).toEqual({ a: [undefined, { c: { a: 1 } } ] });
 
     expect(assignSet({ a: [] }, 'a[1].c', 1)).toEqual({ a: [undefined, { c: 1 }] });
+    // 已经是数组，保持原对象形式
+    expect(assignSet({ a: [] }, 'a["1"].c', 1)).toEqual({ a: [undefined, { c: 1 }] });
+    // 兼容模式，旧版的 path 设置模式
+    expect(assignSet({}, 'a["1"].c', 1)).toEqual({ a: [undefined, { c: 1 }] });
+    
     expect(assignSet({ a: [] }, 'a[1].c', '1')).toEqual({ a: [undefined, { c: '1' }] });
     expect(assignSet({ a: [] }, 'a[1].c', false)).toEqual({ a: [undefined, { c: false }] });
     expect(assignSet({ a: [] }, 'a[1].c', [1])).toEqual({ a: [undefined, { c: [1] }] });
@@ -115,15 +120,5 @@ describe('set', () => {
     expect(assignSet({ a: true }, 'a[1][1].c', false)).toEqual({ a: [undefined, [undefined, { c: false }]] });
     expect(assignSet({ a: true }, 'a[1][1].c', [1])).toEqual({ a: [undefined, [undefined, { c: [1] }]] });
     expect(assignSet({ a: true }, 'a[1][1].c', { a: 1 })).toEqual({ a: [undefined, [undefined, { c: { a: 1 } }]] });
-  });
-
-  it('should assign to array', () => {
-    let t = [];
-    set(t, 'a.b.c', 'd');
-    expect(t.a).toEqual({ b: { c: 'd' } });
-
-    t = null;
-    set(t, 'a.b.c', 'd');
-    expect(t).toEqual(null);
   });
 });
