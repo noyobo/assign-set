@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.1.4 (2022-06-13)
+
+
+### Bug Fixes
+
+* set index reset data ([b693bed](./commit/b693bed5a86a8d78dfe2283ef6a041ead2dd6ed0))
+
 ### 1.1.3 (2022-06-13)
 
 
