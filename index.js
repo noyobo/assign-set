@@ -538,6 +538,10 @@ function baseSet(object, path, value, customizer) {
 
     var nextPath = path[index + 1];
 
+    if (key[0] == '[' && key.substring(key.length - 1) == ']') {
+      key = key.substring(1, key.length - 1);
+    }
+
     if (index != lastIndex) {
       var objValue = nested[key];
       newValue = customizer ? customizer(objValue, key, nested) : undefined;
@@ -549,10 +553,6 @@ function baseSet(object, path, value, customizer) {
             ? []
             : {};
       }
-    }
-
-    if (key[0] == '[' && key.substring(key.length - 1) == ']') {
-      key = key.substring(1, key.length - 1);
     }
 
     assignValue(nested, key, newValue);

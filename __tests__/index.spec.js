@@ -57,7 +57,8 @@ describe('set', () => {
     expect(assignSet({ a: [] }, 'a["1"].c', 1)).toEqual({ a: [undefined, { c: 1 }] });
     // 兼容模式，旧版的 path 设置模式
     expect(assignSet({}, 'a["1"].c', 1)).toEqual({ a: [undefined, { c: 1 }] });
-    
+    expect(assignSet({}, 'a["1"]', {c:1})).toEqual({ a: [undefined, { c: 1 }] });
+
     expect(assignSet({ a: [] }, 'a[1].c', '1')).toEqual({ a: [undefined, { c: '1' }] });
     expect(assignSet({ a: [] }, 'a[1].c', false)).toEqual({ a: [undefined, { c: false }] });
     expect(assignSet({ a: [] }, 'a[1].c', [1])).toEqual({ a: [undefined, { c: [1] }] });
