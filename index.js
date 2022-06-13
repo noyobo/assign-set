@@ -515,6 +515,16 @@ function baseSet(object, path, value, customizer) {
   if (!isObject(object)) {
     return object;
   }
+
+  if (/\[('|")(\d+)(\1)\]/.test(path)) {
+    console.warn(
+      `\`${path}\` array string index will be deprecated. Use \`${path.replace(
+        /\[('|")(\d+)(\1)\]/g,
+        '[$2]'
+      )}\` instead.`
+    );
+  }
+
   path = isKey(path, object) ? [path] : castPath(path);
 
   var index = -1,
@@ -664,7 +674,10 @@ function isKey(value, object) {
 function isPath(path, object) {
   var isArr = isArray(object);
   var isField = /\[\d+\]/.test(path);
+  var isIndexField = /\d+/.test(path);
   if (isArr && isField) {
+    return true;
+  } else if (isArr && isIndexField) {
     return true;
   } else if (!isArr && !isField) {
     return true;
@@ -717,10 +730,10 @@ var stringToPath = memoize(function (string) {
   string.replace(rePropName, function (match, number, quote, string) {
     result.push(
       quote
-        ? string.replace(reEscapeChar, '$1')
-        : number && number[0] !== '-'
-        ? match
-        : number || match
+        ? /\d+/.test(string)
+          ? '[' + string + ']'
+          : string.replace(reEscapeChar, '$1')
+        : match
     );
   });
   return result;
