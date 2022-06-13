@@ -46,15 +46,13 @@ describe('set', () => {
     expect(assignSet({ a: [] }, 'a.b.c', [1])).toEqual({ a: { b: { c: [1] } } });
     expect(assignSet({ a: [] }, 'a.b.c', { a: 1 })).toEqual({ a: { b: { c: { a: 1 } } } });
 
-    expect(assignSet({ a: [] }, 'a.1.c', 1)).toEqual({ a: [undefined, { c: 1 } ] });
-    expect(assignSet({ a: [] }, 'a.1.c', '1')).toEqual({ a: [undefined, { c: '1' } ] });
-    expect(assignSet({ a: [] }, 'a.1.c', false)).toEqual({ a: [undefined, { c: false } ] });
-    expect(assignSet({ a: [] }, 'a.1.c', [1])).toEqual({ a: [undefined, { c: [1] } ] });
-    expect(assignSet({ a: [] }, 'a.1.c', { a: 1 })).toEqual({ a: [undefined, { c: { a: 1 } } ] });
+    expect(assignSet({ a: [] }, 'a.1.c', 1)).toEqual({ a: { 1: { c: 1 } } });
+    expect(assignSet({ a: [] }, 'a.1.c', '1')).toEqual({ a: { 1: { c: '1' } } });
+    expect(assignSet({ a: [] }, 'a.1.c', false)).toEqual({ a: { 1: { c: false } } });
+    expect(assignSet({ a: [] }, 'a.1.c', [1])).toEqual({ a: { 1: { c: [1] } } });
+    expect(assignSet({ a: [] }, 'a.1.c', { a: 1 })).toEqual({ a: { 1: { c: { a: 1 } } } });
 
     expect(assignSet({ a: [] }, 'a[1].c', 1)).toEqual({ a: [undefined, { c: 1 }] });
-    // 已经是数组，保持原对象形式
-    expect(assignSet({ a: [] }, 'a["1"].c', 1)).toEqual({ a: [undefined, { c: 1 }] });
     expect(assignSet({ a: [] }, 'a[1].c', '1')).toEqual({ a: [undefined, { c: '1' }] });
     expect(assignSet({ a: [] }, 'a[1].c', false)).toEqual({ a: [undefined, { c: false }] });
     expect(assignSet({ a: [] }, 'a[1].c', [1])).toEqual({ a: [undefined, { c: [1] }] });

@@ -511,11 +511,11 @@ function baseIsNative(value) {
  * @param {Function} [customizer] The function to customize path creation.
  * @returns {Object} Returns `object`.
  */
-function baseSet(object, fullPath, value, customizer) {
+function baseSet(object, path, value, customizer) {
   if (!isObject(object)) {
     return object;
   }
-  let path = isKey(fullPath, object) ? [fullPath] : castPath(fullPath);
+  path = isKey(path, object) ? [path] : castPath(path);
 
   var index = -1,
     length = path.length,
@@ -533,7 +533,7 @@ function baseSet(object, fullPath, value, customizer) {
       newValue = customizer ? customizer(objValue, key, nested) : undefined;
       if (newValue === undefined) {
         newValue =
-          isObject(objValue) && isPath(nextPath, objValue, fullPath)
+          isObject(objValue) && isPath(nextPath, objValue)
             ? objValue
             : isIndex(nextPath)
             ? []
@@ -541,10 +541,7 @@ function baseSet(object, fullPath, value, customizer) {
       }
     }
 
-    // 将 ["1"] 处理成 1
-    if (/\[('|")\d+(\1)/.test(key)) {
-      key = key.substring(2, key.length - 2);
-    } else if (key[0] == '[' && key.substring(key.length - 1) == ']') {
+    if (key[0] == '[' && key.substring(key.length - 1) == ']') {
       key = key.substring(1, key.length - 1);
     }
 
@@ -664,16 +661,10 @@ function isKey(value, object) {
   );
 }
 
-function isPath(path, object, fullPath) {
+function isPath(path, object) {
   var isArr = isArray(object);
   var isField = /\[\d+\]/.test(path);
-  var isLegacyField = /(\[('|")\d+(\1)\]|\d+)/.test(path);
   if (isArr && isField) {
-    return true;
-  } else if (isArr && isLegacyField) {
-    console.warn(
-      `${fullPath} is a legacy field path on Array data. will be removed in the next major version.`
-    );
     return true;
   } else if (!isArr && !isField) {
     return true;
@@ -724,7 +715,13 @@ var stringToPath = memoize(function (string) {
     result.push('');
   }
   string.replace(rePropName, function (match, number, quote, string) {
-    result.push(match);
+    result.push(
+      quote
+        ? string.replace(reEscapeChar, '$1')
+        : number && number[0] !== '-'
+        ? match
+        : number || match
+    );
   });
   return result;
 });
