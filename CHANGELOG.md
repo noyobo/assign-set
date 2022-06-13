@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.1.3 (2022-06-13)
+
+
+### Bug Fixes
+
+* 兼容 array string index 下标 ([ab4a203](./commit/ab4a203303525f483a32cb19bd6443caf87287cb))
+
 ### 1.1.2 (2022-06-13)
 
 

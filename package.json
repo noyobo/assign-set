@@ -1,6 +1,6 @@
 {
   "name": "assign-set",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "main": "index.js",
   "typings": "index.d.ts",
   "files": [
