@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.1.2 (2022-06-13)
+
+
+### Bug Fixes
+
+* 兼容 ['1'] 降级模式 ([59f953c](./commit/59f953c0d3cef188b7ab61953e83a6852f8335aa))
+
 ### 1.1.1 (2022-06-09)
 
 
