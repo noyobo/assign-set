@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.1.5 (2022-06-14)
+
+
+### Bug Fixes
+
+* [-1]  field ([f14f55e](./commit/f14f55e09442f517dcc487d452147f20eed574b3))
+
 ### 1.1.4 (2022-06-13)
 
 
