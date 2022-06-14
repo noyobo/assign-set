@@ -506,22 +506,21 @@ function baseIsNative(value) {
  *
  * @private
  * @param {Object} object The object to modify.
- * @param {Array|string} path The path of the property to set.
+ * @param {Array|string} fieldPath The path of the property to set.
  * @param {*} value The value to set.
  * @param {Function} [customizer] The function to customize path creation.
  * @returns {Object} Returns `object`.
  */
-function baseSet(object, path, value, customizer) {
+function baseSet(object, fieldPath, value, customizer) {
   if (!isObject(object)) {
     return object;
   }
 
-  if (/\[('|")(\d+)(\1)\]/.test(path)) {
+  var path = fieldPath;
+  if (/\[('|")(\d+)(\1)\]/.test(fieldPath)) {
+    path = path.replace(/\[('|")(\d+)(\1)\]/g, '[$2]');
     console.warn(
-      `\`${path}\` array string index will be deprecated. Use \`${path.replace(
-        /\[('|")(\d+)(\1)\]/g,
-        '[$2]'
-      )}\` instead.`
+      `\`${fieldPath}\` array string index will be deprecated. Use \`${path}\` instead.`
     );
   }
 
@@ -674,10 +673,11 @@ function isKey(value, object) {
 function isPath(path, object) {
   var isArr = isArray(object);
   var isField = /\[\d+\]/.test(path);
-  var isIndexField = /\d+/.test(path);
+  var isIndexField = /^\d+$/.test(path);
   if (isArr && isField) {
     return true;
   } else if (isArr && isIndexField) {
+    // 原数据是  [] 支持  a.1.b 设置值
     return true;
   } else if (!isArr && !isField) {
     return true;
@@ -730,10 +730,10 @@ var stringToPath = memoize(function (string) {
   string.replace(rePropName, function (match, number, quote, string) {
     result.push(
       quote
-        ? /\d+/.test(string)
-          ? '[' + string + ']'
-          : string.replace(reEscapeChar, '$1')
-        : match
+        ? string.replace(reEscapeChar, '$1')
+        : number && number[0] !== '-'
+        ? match
+        : number || match
     );
   });
   return result;

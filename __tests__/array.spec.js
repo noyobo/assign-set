@@ -14,6 +14,10 @@ describe('set', () => {
     t = {list: [{a: 1}, {a: 2, isFold: false}, {a: 3}]};
     set(t, 'list["1"].isFold', true);
     expect(t).toEqual({list: [{a: 1}, {a: 2, isFold: true}, {a: 3}]});
+
+    t = {list: [{a: 1}, {a: 2, isFold: false}, {a: 3}]};
+    set(t, 'list["-1"].isFold', true);
+    expect(t).toEqual({list: {'-1': {isFold: true}}});
   });
 
   it('should assign to object', () => {
@@ -28,5 +32,9 @@ describe('set', () => {
     t = {list: {a: 1 ,b: 2, c: 3}};
     set(t, 'list[1].d', true);
     expect(t).toEqual({list: [undefined, {d: true}]});
+
+    t = {list: {a: 1 ,b: 2, c: 3}};
+    set(t, 'list[-1].d', true);
+    expect(t).toEqual({list: {a: 1 ,b: 2, c: 3, '-1': {d: true} }});
   });
 });
