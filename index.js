@@ -456,14 +456,18 @@ MapCache.prototype.set = mapCacheSet;
  * @param {string} key The key of the property to assign.
  * @param {*} value The value to assign.
  */
-function assignValue(object, key, value) {
+function assignValue(object, key, value, isEnd) {
   var objValue = object[key];
   if (
     !(hasOwnProperty.call(object, key) && eq(objValue, value)) ||
     (value === undefined && !(key in object))
   ) {
-    object[key] = value;
+    object[key] = isEnd ? { __value__: value, __set__: true } : value;
   }
+}
+
+function getSetValue(target) {
+  return '__set__' in target && target.__set__ ? target.__value__ : target;
 }
 
 /**
@@ -529,9 +533,11 @@ function baseSet(object, fieldPath, value, customizer) {
   var index = -1,
     length = path.length,
     lastIndex = length - 1,
-    nested = object;
+    nested = getSetValue(object);
 
   while (nested != null && ++index < length) {
+    nested = getSetValue(nested);
+
     var key = toKey(path[index]),
       newValue = value;
 
@@ -554,7 +560,7 @@ function baseSet(object, fieldPath, value, customizer) {
       }
     }
 
-    assignValue(nested, key, newValue);
+    assignValue(nested, key, newValue, index === lastIndex);
     nested = nested[key];
   }
   return object;
