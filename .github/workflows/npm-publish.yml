@@ -20,13 +20,14 @@ jobs:
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 20
           registry-url: https://registry.npmjs.org/
       - name: Bump Version
         uses: qzb/standard-version-action@v1.0.5
       - name: Npm publish
         run: |
           npm whoami
+          rm package-lock.json
           npm i
           npm run test
           npm publish
