@@ -1,17 +1,19 @@
 {
   "name": "assign-set",
   "version": "1.1.5",
-  "main": "index.js",
+  "module": "index.js",
   "typings": "index.d.ts",
+  "type": "module",
   "files": [
     "index.js",
     "index.d.ts"
   ],
   "license": "MIT",
   "scripts": {
-    "test": "npx jest"
+    "test": "npx vitest"
   },
   "devDependencies": {
-    "jest": "^28.1.1"
+    "@vitest/coverage-v8": "^1.2.1",
+    "vitest": "^1.2.1"
   }
 }
