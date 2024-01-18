@@ -1,4 +1,5 @@
-const set = require('../index');
+import { describe, it, expect} from 'vitest';
+import set from '../index';
 
 // prettier-ignore
 describe('set', () => {

@@ -27,7 +27,7 @@ jobs:
       - name: Npm publish
         run: |
           npm whoami
-          npm ci 
+          npm i
           npm run test
           npm publish
         env:

@@ -1,4 +1,5 @@
-const set = require('../index');
+import { describe, it, expect} from 'vitest';
+import set from '../index';
 
 const assignSet = (obj, path, value) => {
   if (typeof obj === 'string') {
