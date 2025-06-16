@@ -4,6 +4,18 @@
   "module": "index.js",
   "typings": "index.d.ts",
   "type": "module",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./index.js"
+    },
+    "./package.json": "./package.json",
+    "./index.js": {
+      "types": "./index.d.ts",
+      "import": "./index.js"
+    }
+
+  },
   "files": [
     "index.js",
     "index.d.ts"
