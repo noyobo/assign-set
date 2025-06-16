@@ -1,6 +1,6 @@
 {
   "name": "assign-set",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "module": "index.js",
   "typings": "index.d.ts",
   "type": "module",
@@ -14,7 +14,6 @@
       "types": "./index.d.ts",
       "import": "./index.js"
     }
-
   },
   "files": [
     "index.js",

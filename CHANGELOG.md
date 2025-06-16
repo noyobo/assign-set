@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.1.9 (2025-06-16)
+
+
+### Bug Fixes
+
+* add exports field in package.json ([c59cecd](./commit/c59cecdea8f49bdc39afeadd698fb1f83498ddd1))
+
 ### 1.1.8 (2024-09-10)
 
 ### 1.1.7 (2024-09-10)
